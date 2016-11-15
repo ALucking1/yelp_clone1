@@ -30,4 +30,15 @@ feature 'restaurants' do
         expect(current_path).to eq '/restaurants'
       end
     end
+
+    context 'viewing restaurants' do
+      let!(:wimpy) { Restaurant.create(name: 'Wimpy') }
+
+      scenario 'lets user view a restaurant' do
+        visit '/restaurants'
+        click_link 'Wimpy'
+        expect(page).to have_content 'Wimpy'
+        expect(current_path).to eq "/restaurants/#{wimpy.id}"
+      end
+    end
 end
