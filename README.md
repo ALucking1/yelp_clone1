@@ -1,7 +1,6 @@
 ###README doc
-## Rails week woohoo! Let's do this!
+## Rails week - Yelp
 
-![](http://i.giphy.com/VKAmeZjOJXXpe.gif)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
