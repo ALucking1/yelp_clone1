@@ -116,6 +116,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (11.3.0)
     rdoc (4.3.0)
+    rspec-collection_matchers (1.1.2)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -181,6 +183,7 @@ DEPENDENCIES
   jquery-rails
   pg (~> 0.15)
   rails (= 4.2.7.1)
+  rspec-collection_matchers
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
@@ -190,4 +193,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.5
+   1.13.6
