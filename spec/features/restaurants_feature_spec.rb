@@ -1,13 +1,25 @@
 require 'rails_helper'
 
 feature 'restaurants' do
-  context 'no restaurants have been added' do
-    scenario 'should display a prompt to add a restaurant' do
-      visit '/restaurants'
-      expect(page).to have_content 'No restaurants yet'
-      expect(page).to have_link 'Add a restaurant'
-    end
+  before do
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@testing.com')
+    fill_in('Password', with: 'testing')
+    fill_in('Password confirmation', with: 'testing')
+    click_button('Sign up')
+    click_link('Add a restaurant')
+    fill_in 'Name', with: 'Momo Canteen'
+    click_button 'Create Restaurant'
   end
+
+  # context 'no restaurants have been added' do
+  #   scenario 'should display a prompt to add a restaurant' do
+  #     visit '/restaurants'
+  #     expect(page).to have_content 'No restaurants yet'
+  #     expect(page).to have_link 'Add a restaurant'
+  #   end
+  # end
   context 'restaurants have been added' do
     before do
       Restaurant.create(name: 'Waffle House')
@@ -21,6 +33,7 @@ feature 'restaurants' do
   end
 
     context 'creating restaurants' do
+
       scenario 'prompts user to fill out a form, then displays the new restaurant' do
         visit '/restaurants'
         click_link 'Add a restaurant'
@@ -79,6 +92,32 @@ feature 'restaurants' do
         expect(page).not_to have_content 'KFC'
         expect(page).to have_content 'Restaurant deleted successfully'
       end
-
     end
+
+    context 'actions restricted to logged in users' do
+      before { Restaurant.create name: 'Trade', description: 'Expensive cheese toastie' }
+
+      scenario 'user cannot delete restaurant unless logged in' do
+        click_link 'Sign out'
+        click_link 'Delete Trade'
+        expect(page).to have_button 'Log in'
+        expect(current_path).to eq '/users/sign_in'
+        expect(page).not_to have_content 'Restaurant deleted successfully'
+      end
+    end
+
+    context 'user cannot delete restaurant which they haven\'t created' do
+      scenario 'user can only edit/delete restaurants which they have created' do
+        click_link 'Sign out'
+        visit '/'
+        click_link 'Sign up'
+        fill_in('Email', with: 'test@example.com')
+        fill_in('Password', with: 'testtest')
+        fill_in('Password confirmation', with: 'testtest')
+        click_button('Sign up')
+        click_link('Delete Momo Canteen')
+        expect(page).to have_content('Woah, woah, woah. That ain\'t your restaurant!')
+      end
+    end
+
   end
