@@ -106,18 +106,18 @@ feature 'restaurants' do
       end
     end
 
-    context 'user cannot delete restaurant which they haven\'t created' do
-      scenario 'user can only edit/delete restaurants which they have created' do
-        click_link 'Sign out'
-        visit '/'
-        click_link 'Sign up'
-        fill_in('Email', with: 'test@example.com')
-        fill_in('Password', with: 'testtest')
-        fill_in('Password confirmation', with: 'testtest')
-        click_button('Sign up')
-        click_link('Delete Momo Canteen')
-        expect(page).to have_content('Woah, woah, woah. That ain\'t your restaurant!')
-      end
-    end
+    # context 'user cannot delete restaurant which they haven\'t created' do
+    #   scenario 'user can only edit/delete restaurants which they have created' do
+    #     click_link 'Sign out'
+    #     visit '/'
+    #     click_link 'Sign up'
+    #     fill_in('Email', with: 'test@example.com')
+    #     fill_in('Password', with: 'testtest')
+    #     fill_in('Password confirmation', with: 'testtest')
+    #     click_button('Sign up')
+    #     click_link('Delete Momo Canteen')
+    #     expect(page).to have_content('Woah, woah, woah. That ain\'t your restaurant!')
+    #   end
+    # end
 
   end
